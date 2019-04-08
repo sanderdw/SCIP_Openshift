@@ -17,5 +17,5 @@ COPY markshare2.mps /usr/scip
 COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
 
-USER nobody
+USER 1001
 CMD ["jupyterhub"]
