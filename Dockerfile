@@ -4,7 +4,6 @@ ARG JUPYTERHUB_VERSION=0.8.1
 RUN pip3 install --no-cache jupyterhub==${JUPYTERHUB_VERSION}
 ENV LANG=en_US.UTF-8
 
-USER nobody
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential cmake zlib1g-dev libgmp3-dev libreadline-dev lib32ncurses5-dev bison flex zimpl bliss && apt-get clean
@@ -17,4 +16,6 @@ WORKDIR /usr/scip
 COPY markshare2.mps /usr/scip
 COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
+
+USER nobody
 CMD ["jupyterhub"]
