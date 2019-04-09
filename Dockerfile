@@ -6,13 +6,12 @@ RUN apt-get update && \
     build-essential cmake zlib1g-dev libgmp3-dev libreadline-dev lib32ncurses5-dev bison flex zimpl bliss && apt-get clean
 COPY scipoptsuite-6.0.1.tgz /
 RUN tar xvf scipoptsuite-6.0.1.tgz
-RUN rm scipoptsuite-6.0.1.tgz
-RUN cd scipoptsuite-6.0.1 && cmake /scipoptsuite-6.0.1 -DCMAKE_INSTALL_PREFIX=/opt/SCIP && make install TPI=tny USRLDFLAGS=-lpthread && export SCIPOPTDIR=/opt/SCIP
-RUN pip install --upgrade pip && pip install pyscipopt && pip install pyhdb && pip install pandas
+RUN cd scipoptsuite-6.0.1 && cmake /scipoptsuite-6.0.1 -DCMAKE_INSTALL_PREFIX=/home/SCIP && make install TPI=tny USRLDFLAGS=-lpthread
+RUN export SCIPOPTDIR=/home/SCIP && pip install --upgrade pip && pip install jupyter && pip install pyscipopt && pip install pyhdb && pip install pandas
 
-COPY markshare2.mps /
-COPY markshare2.ipynb /
-COPY diet.ipynb /
-COPY diet.py /
+WORKDIR /usr/scip
+COPY markshare2.mps /usr/scip
+COPY markshare2.ipynb /usr/scip
+COPY diet.ipynb /usr/scip
 
 CMD [ "python", "/diet.py" ]
