@@ -16,5 +16,6 @@ WORKDIR /usr/scip
 COPY markshare2.mps /usr/scip
 COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
+COPY diet.py /usr/scip
 
 CMD [ "python", "/usr/scip/diet.py" ]
