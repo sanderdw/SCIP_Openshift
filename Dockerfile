@@ -1,8 +1,8 @@
+# We will use Ubuntu for our image
 FROM ubuntu:latest
 
 # Updating Ubuntu packages
 RUN apt-get update
-
 # Add sudo
 RUN apt-get -y install sudo
 
@@ -15,13 +15,14 @@ WORKDIR /home/ubuntu/
 RUN chmod a+rwx /home/ubuntu/
 #RUN echo `pwd`
 
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -b
-RUN rm Miniconda3-latest-Linux-x86_64.sh
+# Anaconda installing
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
+RUN bash Anaconda3-2019.03-Linux-x86_64.sh -b
+RUN rm Anaconda3-2019.03-Linux-x86_64.sh
 
 # Set path to conda
 #ENV PATH /root/anaconda3/bin:$PATH
-ENV PATH /home/appuser/anaconda3/bin:$PATH
+ENV PATH /home/ubuntu/anaconda3/bin:$PATH
 
 # Updating Anaconda packages
 RUN conda update conda
@@ -35,6 +36,6 @@ RUN echo "c.NotebookApp.password = u'sha1:6a3f528eec40:6e896b6e4828f525a6e20e541
 
 # Jupyter listens port: 8888
 EXPOSE 8888
+
 # Run Jupytewr notebook as Docker main process
 CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/home/ubuntu/notebooks", "--ip='*'", "--port=8888", "--no-browser"]
-
