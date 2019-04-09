@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 RUN pip install virtualenv
 RUN mkdir -p /home/python/.virtualenvs
 RUN virtualenv /home/python/.virtualenvs/myproj --python=python3.6
-RUN source /home/python/.virtualenvs/myproj/bin/activate
+RUN python activate /home/python/.virtualenvs/myproj/bin/activate
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
