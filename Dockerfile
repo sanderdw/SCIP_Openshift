@@ -1,5 +1,5 @@
 # We will use Ubuntu for our image
-FROM ubuntu:latest
+FROM ubuntu:bionic
 
 # Updating Ubuntu packages
 RUN apt-get update
