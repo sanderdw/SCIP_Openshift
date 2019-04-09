@@ -4,7 +4,7 @@ MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 WORKDIR /usr/src/app
 
 RUN pip install virtualenv
-RUN mkvirtualenv myenv --python=python3.6
+RUN virtualenv myenv --python=python3.6
 RUN workon myenv
 
 COPY requirements.txt ./
