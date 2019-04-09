@@ -1,4 +1,6 @@
-FROM continuumio/anaconda3
+FROM python:3.6.8-stretch
 MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-ENTRYPOINT ["/bin/bash"]
+RUN pip3 install jupyter
+
+CMD ["jupyter notebook"]
