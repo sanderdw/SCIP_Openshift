@@ -1,5 +1,11 @@
-FROM debian:stretch
-MAINTAINER Sander de Wildt <sanderdw@gmail.com>
+FROM ubuntu:latest
+
+# Updating Ubuntu packages
+RUN apt-get update && yes|apt-get upgrade
+RUN apt-get install -y emacs
+
+# Adding wget and bzip2
+RUN apt-get install -y wget bzip2
 
 # Add sudo
 RUN apt-get -y install sudo
@@ -11,6 +17,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER ubuntu
 WORKDIR /home/ubuntu/
 RUN chmod a+rwx /home/ubuntu/
+#RUN echo `pwd`
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b
