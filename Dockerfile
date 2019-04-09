@@ -1,16 +1,15 @@
 FROM python:3.6.8-stretch
 MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-RUN pip3 install jupyterhub
-ENV LANG=en_US.UTF-8
+RUN pip install --upgrade pip && pip install jupyterhub
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    build-essential cmake zlib1g-dev libgmp3-dev libreadline-dev lib32ncurses5-dev bison flex zimpl bliss && apt-get clean
-COPY scipoptsuite-6.0.1.tgz /
-RUN tar xvf scipoptsuite-6.0.1.tgz
-RUN cd scipoptsuite-6.0.1 && cmake /scipoptsuite-6.0.1 -DCMAKE_INSTALL_PREFIX=/opt/scip && make install TPI=tny USRLDFLAGS=-lpthread && export SCIPOPTDIR=/opt/scip 
-RUN pip install --upgrade pip && pip install pyscipopt && pip install pyhdb
+    libblas3 libgmp10 libgsl2 liblapack3 && apt-get clean
+COPY SCIPOptSuite-6.0.1-Linux.deb /
+RUN dpkg -i SCIPOptSuite-6.0.1-Linux.deb
+
+RUN pip install pyscipopt && pip install pyhdb
 
 WORKDIR /usr/scip
 COPY markshare2.mps /usr/scip
