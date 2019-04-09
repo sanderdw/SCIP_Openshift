@@ -15,3 +15,5 @@ WORKDIR /usr/scip
 COPY markshare2.mps /usr/scip
 COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
+
+CMD ["/bin/bash"]
