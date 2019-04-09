@@ -1,7 +1,7 @@
 FROM python:3.6.8-stretch
 MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-RUN pip install --upgrade pip && pip install jupyterhub
+RUN pip install --upgrade pip && pip install jupyter
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -17,4 +17,4 @@ COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
 COPY diet.py /usr/scip
 
-CMD [ "python", "/usr/scip/diet.py" ]
+CMD [ "python", "jupyter notebook" ]
