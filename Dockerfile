@@ -1,5 +1,5 @@
 FROM continuumio/anaconda3
 MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-
-CMD ["/opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='0.0.0.0' --port=8888 --no-browser"]
+ENTRYPOINT ["/bin/ping"]
+CMD ["localhost"]
