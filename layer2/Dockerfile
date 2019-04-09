@@ -1,7 +1,7 @@
 FROM myproject/scipopenshift:latest
-MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-COPY test.py /usr/scip
-COPY sap.py /usr/scip
+RUN pip install flask && pip install flask_cors && pip install paho-mqtt
+COPY api.py /usr/scip
 
-CMD [ "python", "test.py" ]
+EXPOSE 80
+CMD [ "python", "api.py" ]
