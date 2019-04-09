@@ -3,10 +3,7 @@ MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
 WORKDIR /usr/src/app
 
-RUN pip install virtualenv
-RUN mkdir -p /home/python/.virtualenvs
-RUN virtualenv /home/python/.virtualenvs/myproj --python=python3.6
-RUN python activate /home/python/.virtualenvs/myproj/bin/activate
+RUN python3 -m venv /usr/virtual/environment
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
