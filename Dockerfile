@@ -1,5 +1,4 @@
-ARG BASE_CONTAINER=jupyter/scipy-notebook
-FROM $BASE_CONTAINER
+FROM jupyter/scipy-notebook
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
