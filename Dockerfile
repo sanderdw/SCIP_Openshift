@@ -8,4 +8,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [ "python", "./helloworld.py" ]
+expose 8888
+CMD [ "bin/bash", "jupyterhub" ]
