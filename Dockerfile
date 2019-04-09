@@ -14,4 +14,4 @@ COPY markshare2.mps /usr/scip
 COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
 
-CMD [ "python", "/usr/scip/diet.py" ]
+CMD [ "python", "diet.py" ]
