@@ -4,6 +4,7 @@ MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
 USER appuser
+RUN mkdir /home/appuser/
 WORKDIR /home/appuser/
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
