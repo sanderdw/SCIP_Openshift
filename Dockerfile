@@ -1,13 +1,11 @@
-FROM jupyter/scipy-notebook
+FROM python:3.6.8-stretch
+MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+WORKDIR /usr/src/app
 
-# Install Tensorflow
-RUN conda install --quiet --yes \
-    'tensorflow=1.12*' \
-    'keras=2.2*' && \
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8888
+COPY . .
+
+CMD [ "python", "./helloworld.py" ]
