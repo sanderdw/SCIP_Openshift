@@ -1,20 +1,18 @@
-# We will use Ubuntu for our image
-FROM ubuntu:bionic
+FROM python:3.6.8-stretch
+MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-# Updating Ubuntu packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    libblas3 libgmp10 libgsl2 liblapack3 && apt-get clean
+    build-essential cmake zlib1g-dev libgmp3-dev libreadline-dev lib32ncurses5-dev bison flex zimpl bliss && apt-get clean
+COPY scipoptsuite-6.0.1.tgz /
+RUN tar xvf scipoptsuite-6.0.1.tgz
+RUN cd scipoptsuite-6.0.1 && cmake /scipoptsuite-6.0.1 -DCMAKE_INSTALL_PREFIX=/home/SCIP && make install TPI=tny USRLDFLAGS=-lpthread
+RUN export SCIPOPTDIR=/home/SCIP && pip install --upgrade pip && pip install pyscipopt && pip install pyhdb
 
-# Add user ubuntu with no password
-# The --gecos parameter is used to set the additional information. In this case it is just empty.
-RUN adduser --disabled-password --gecos '' ubuntu
-USER ubuntu
-WORKDIR /home/ubuntu/
-RUN chmod a+rwx /home/ubuntu/
+WORKDIR /usr/scip
+COPY markshare2.mps /usr/scip
+COPY markshare2.ipynb /usr/scip
+COPY diet.ipynb /usr/scip
+COPY diet.py /usr/scip
 
-COPY SCIPOptSuite-6.0.1-Linux.deb /home/ubuntu/
-COPY markshare2.mps /home/ubuntu/
-USER root
-RUN dpkg -i /home/ubuntu/SCIPOptSuite-6.0.1-Linux.deb
-USER ubuntu
+CMD [ "python", "/usr/scip/diet.py" ]
