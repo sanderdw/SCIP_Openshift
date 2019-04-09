@@ -1,11 +1,7 @@
 FROM ubuntu:latest
 
 # Updating Ubuntu packages
-RUN apt-get update && yes|apt-get upgrade
-RUN apt-get install -y emacs
-
-# Adding wget and bzip2
-RUN apt-get install -y wget bzip2
+RUN apt-get update
 
 # Add sudo
 RUN apt-get -y install sudo
