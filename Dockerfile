@@ -1,21 +1,14 @@
-FROM python:3.6.8-stretch
-MAINTAINER Sander de Wildt <sanderdw@gmail.com>
-ARG JUPYTERHUB_VERSION=0.8.1
-RUN pip3 install --no-cache jupyterhub==${JUPYTERHUB_VERSION}
-ENV LANG=en_US.UTF-8
+ARG BASE_CONTAINER=jupyter/scipy-notebook
+FROM $BASE_CONTAINER
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential cmake zlib1g-dev libgmp3-dev libreadline-dev lib32ncurses5-dev bison flex zimpl bliss && apt-get clean
-COPY scipoptsuite-6.0.1.tgz /
-RUN tar xvf scipoptsuite-6.0.1.tgz
-RUN cd scipoptsuite-6.0.1 && cmake /scipoptsuite-6.0.1 -DCMAKE_INSTALL_PREFIX=/home/SCIP && make install TPI=tny USRLDFLAGS=-lpthread
-RUN export SCIPOPTDIR=/home/SCIP && pip install --upgrade pip && pip install pyscipopt && pip install pyhdb
+LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
-WORKDIR /usr/scip
-COPY markshare2.mps /usr/scip
-COPY markshare2.ipynb /usr/scip
-COPY diet.ipynb /usr/scip
+# Install Tensorflow
+RUN conda install --quiet --yes \
+    'tensorflow=1.12*' \
+    'keras=2.2*' && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
-USER 1001
-CMD ["jupyterhub"]
+EXPOSE 8888
