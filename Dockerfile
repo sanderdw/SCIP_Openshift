@@ -1,7 +1,6 @@
 FROM python:3.6.8-stretch
 MAINTAINER Sander de Wildt <sanderdw@gmail.com>
 
-ENV LANG=en_US.UTF-8
 ARG user=solver
 ARG group=solver
 ARG uid=1000
