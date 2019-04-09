@@ -17,4 +17,4 @@ COPY markshare2.ipynb /usr/scip
 COPY diet.ipynb /usr/scip
 COPY diet.py /usr/scip
 
-CMD [ "jupyter notebook" ]
+CMD [ "jupyter" ]
